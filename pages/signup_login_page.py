@@ -9,6 +9,7 @@ class SignupLoginPage(Page):
     PASSWORD_FIELD = (By.CSS_SELECTOR, "input[data-qa='login-password']")
     LOGIN_BUTTON = (By.CSS_SELECTOR, "button[data-qa='login-button']")
     LOGGED_IN_USER = (By.XPATH, "//a[contains(., 'Logged in as')]")
+    INVALID_LOGIN_ERROR = (By.XPATH, "//p[contains(., 'Your email or password is incorrect!')]")
 
     def assert_login_page_displayed(self):
         self.verify_partial_url('/login')
@@ -50,5 +51,7 @@ class SignupLoginPage(Page):
         self.wait_for_element_to_appear(*self.LOGGED_IN_USER)
         self.verify_partial_text('Logged in as', *self.LOGGED_IN_USER)
 
-
+    def assert_invalid_login_error_message(self):
+        self.wait_for_element_to_appear(*self.INVALID_LOGIN_ERROR)
+        self.verify_text('Your email or password is incorrect!', *self.INVALID_LOGIN_ERROR)
 

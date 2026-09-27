@@ -48,3 +48,14 @@ def step_impl(context):
 @then('the user should be logged in successfully')
 def step_impl(context):
     context.app.signup_login_page.assert_logged_in()
+
+
+@when('the user enters "{email}" and "{password}"')
+def step_impl(context, email, password):
+    context.app.signup_login_page.enter_email(email)
+    context.app.signup_login_page.enter_password(password)
+
+
+@then('the invalid login error message should be displayed')
+def step_impl(context):
+    context.app.signup_login_page.assert_invalid_login_error_message()

@@ -39,6 +39,7 @@ Feature: Automation Exercise E-Commerce Functionality
       | nonexistent@test.com  | TestPassword123  |
       | valid_user@test.com   | WrongPassword123 |
       | invalid@test.com      | InvalidPassword  |
+      | sisona.chkuaseli112@gmail.com | WrongPassword123 |
 
 
   @regression
