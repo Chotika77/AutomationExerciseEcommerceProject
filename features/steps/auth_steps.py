@@ -59,3 +59,28 @@ def step_impl(context, email, password):
 @then('the invalid login error message should be displayed')
 def step_impl(context):
     context.app.signup_login_page.assert_invalid_login_error_message()
+
+
+@given('the user is logged in')
+def step_impl(context):
+    # Navigate to signup/login page and perform login using configured test credentials
+    context.app.main_page.open(context.base_url)
+    context.app.main_page.open_signup_login_page()
+    context.app.signup_login_page.log_in(context.email, context.password)
+    context.app.signup_login_page.assert_logged_in()
+
+
+@when('the user clicks the Logout button')
+def step_impl(context):
+    context.app.signup_login_page.click_logout()
+
+
+@then('the user should be logged out')
+def step_impl(context):
+    # logout redirects to /login; reuse existing assertion
+    context.app.signup_login_page.assert_login_page_displayed()
+
+
+@then('the Signup Login page should be displayed')
+def step_impl(context):
+    context.app.signup_login_page.assert_login_page_displayed()

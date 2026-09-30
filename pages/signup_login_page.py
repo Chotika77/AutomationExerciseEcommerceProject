@@ -10,6 +10,7 @@ class SignupLoginPage(Page):
     LOGIN_BUTTON = (By.CSS_SELECTOR, "button[data-qa='login-button']")
     LOGGED_IN_USER = (By.XPATH, "//a[contains(., 'Logged in as')]")
     INVALID_LOGIN_ERROR = (By.XPATH, "//p[contains(., 'Your email or password is incorrect!')]")
+    LOGOUT_LINK = (By.XPATH, "//a[@href='/logout']")
 
     def assert_login_page_displayed(self):
         self.verify_partial_url('/login')
@@ -46,6 +47,10 @@ class SignupLoginPage(Page):
         self.enter_email(email)
         self.enter_password(password)
         self.click_login()
+
+    def click_logout(self):
+        """Click the logout link (appears when user is logged in)."""
+        self.wait_to_be_clickable_click(*self.LOGOUT_LINK)
 
     def assert_logged_in(self):
         self.wait_for_element_to_appear(*self.LOGGED_IN_USER)
