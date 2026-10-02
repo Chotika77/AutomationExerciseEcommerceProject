@@ -63,7 +63,10 @@ def before_scenario(context, scenario):
 
 
 def before_step(context, step):
+    if getattr(context, "driver", None):
+        context.app.main_page.close_extra_windows()
     print('\nStarted step: ', step)
+
 
 
 def after_step(context, step):

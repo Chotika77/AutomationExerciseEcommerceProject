@@ -8,6 +8,14 @@ class Page:
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 10)
 
+    def close_extra_windows(self):
+        current = self.driver.current_window_handle
+        for handle in self.driver.window_handles:
+            if handle != current:
+                self.driver.switch_to.window(handle)
+                self.driver.close()
+        self.driver.switch_to.window(current)
+
     def open(self, url):
         self.driver.get(url)
 
