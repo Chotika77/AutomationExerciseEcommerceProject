@@ -80,7 +80,7 @@ Feature: Automation Exercise E-Commerce Functionality
       | search_term |
       | top         |
       | tshirt      |
-      | jean        |
+      | jeans       |
 
 
   # ==================== SHOPPING CART ====================
