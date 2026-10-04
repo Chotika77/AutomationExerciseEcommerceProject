@@ -1,21 +1,31 @@
 from behave import when, then
 
 
-@when('the user types "{keyword}" into the "What can we help you find?" search bar')
-def step_impl(context, keyword):
-    context.app.search_results_page.type_search_query(keyword)
-
-
-@when('the user presses "Enter"')
+@when('the user adds two different products to the cart')
 def step_impl(context):
-    context.app.search_results_page.press_enter_in_search()
+    context.app.products_page.add_two_products_to_cart()
 
 
-@then('the search results page should be displayed')
+@when('opens the shopping cart')
 def step_impl(context):
-    context.app.search_results_page.assert_results_page_displayed()
+    context.app.cart_page.open_cart()
 
 
-@then('each product card should show a title, a price, and an image')
+@then('both products should be displayed in the cart')
 def step_impl(context):
-    context.app.search_results_page.are_product_cards_valid()
+    context.app.cart_page.assert_cart_has_two_products()
+
+
+@then('the correct price should be displayed for each product')
+def step_impl(context):
+    context.app.cart_page.assert_price_quantity_total_present()
+
+
+@then('the correct quantity should be displayed for each product')
+def step_impl(context):
+    context.app.cart_page.assert_price_quantity_total_present()
+
+
+@then('the correct total should be displayed for each product')
+def step_impl(context):
+    context.app.cart_page.assert_price_quantity_total_present()

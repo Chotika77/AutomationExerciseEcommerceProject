@@ -39,3 +39,21 @@ class ProductsPage(Page):
 
         assert False, f'No product matched "{search_term}"'
 
+    # New methods needed by the "add multiple products to cart" scenario
+    PRODUCT_CARDS = (By.CSS_SELECTOR, ".product-image-wrapper")
+    ADD_TO_CART_BUTTONS = (By.CSS_SELECTOR, "a.add-to-cart")
+    CONTINUE_SHOPPING_BUTTON = (By.CSS_SELECTOR, "button.close-modal")
+
+    def add_two_products_to_cart(self):
+        cards = self.find_elements(*self.PRODUCT_CARDS)[:2]
+        for card in cards:
+            button = card.find_element(*self.ADD_TO_CART_BUTTONS)
+            self.driver.execute_script("arguments[0].click();", button)
+            self.wait_to_be_clickable_click(*self.CONTINUE_SHOPPING_BUTTON)
+
+        buttons = self.find_elements(*self.ADD_TO_CART_BUTTONS)
+        print("BUTTON 2 ID:", buttons[1].get_attribute("data-product-id"))
+        self.driver.execute_script("arguments[0].click();", buttons[1])
+        self.wait_to_be_clickable_click(*self.CONTINUE_SHOPPING_BUTTON)
+
+
