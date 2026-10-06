@@ -11,6 +11,9 @@ class ProductDetailsPage(Page):
     PRODUCT_AVAILABILITY = (By.XPATH, "//div[contains(@class,'product-information')]//p[contains(.,'Availability:')]")
     PRODUCT_CONDITION = (By.XPATH, "//div[contains(@class,'product-information')]//p[contains(.,'Condition:')]")
     PRODUCT_BRAND = (By.XPATH, "//div[contains(@class,'product-information')]//p[contains(.,'Brand:')]")
+    QUANTITY_INPUT = (By.ID, 'quantity')
+    ADD_TO_CART_BUTTON = (By.CSS_SELECTOR, 'button.btn.btn-default.cart')
+    CONTINUE_SHOPPING_BUTTON = (By.CSS_SELECTOR, 'button.close-modal')
 
     FIELD_LOCATORS = {
         'name': PRODUCT_NAME,
@@ -26,3 +29,15 @@ class ProductDetailsPage(Page):
 
     def assert_product_details_panel_displayed(self):
         self.wait_for_element_to_appear(*self.PRODUCT_DETAILS_PANEL)
+
+    def set_quantity(self, quantity):
+        quantity_input = self.wait_for_element_to_appear(*self.QUANTITY_INPUT)
+        quantity_input.clear()
+        quantity_input.send_keys(str(quantity))
+
+    def add_to_cart(self):
+        self.wait_to_be_clickable_click(*self.ADD_TO_CART_BUTTON)
+        try:
+            self.wait_to_be_clickable_click(*self.CONTINUE_SHOPPING_BUTTON)
+        except Exception:
+            pass

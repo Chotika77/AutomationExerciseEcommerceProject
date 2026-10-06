@@ -25,3 +25,12 @@ class CartPage(Page):
             assert row.find_elements(*self.CART_PRICE), "Price cell is missing from a cart row"
             assert row.find_elements(*self.CART_QUANTITY), "Quantity cell is missing from a cart row"
             assert row.find_elements(*self.CART_TOTAL), "Total cell is missing from a cart row"
+
+    def assert_product_quantity(self, expected_quantity):
+        rows = self.find_elements(*self.CART_ROWS)
+        assert rows, "No products were found in the cart"
+
+        actual_quantity = rows[0].find_element(*self.CART_QUANTITY).text.strip()
+        assert actual_quantity == str(expected_quantity), (
+            f"Expected quantity {expected_quantity}, got {actual_quantity}"
+        )

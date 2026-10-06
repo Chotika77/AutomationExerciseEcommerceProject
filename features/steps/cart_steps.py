@@ -1,4 +1,19 @@
-from behave import when, then
+from behave import given, when, then
+
+
+@given('the user opens a product details page')
+def step_impl(context):
+    context.app.products_page.open_product(context.base_url)
+
+
+@when('the user sets the product quantity to "{quantity}"')
+def step_impl(context, quantity):
+    context.app.product_details_page.set_quantity(quantity)
+
+
+@when('adds the product to the cart')
+def step_impl(context):
+    context.app.product_details_page.add_to_cart()
 
 
 @when('the user adds two different products to the cart')
@@ -29,3 +44,8 @@ def step_impl(context):
 @then('the correct total should be displayed for each product')
 def step_impl(context):
     context.app.cart_page.assert_price_quantity_total_present()
+
+
+@then('the product quantity should be "{quantity}"')
+def step_impl(context, quantity):
+    context.app.cart_page.assert_product_quantity(quantity)
