@@ -114,7 +114,7 @@ Feature: Automation Exercise E-Commerce Functionality
   @regression
   Scenario: User can remove a product from the cart
     Given the user has a product in the shopping cart
-    When the user opens the shopping cart
+    When opens the shopping cart
     And removes the product
     Then the product should no longer be displayed in the cart
 
