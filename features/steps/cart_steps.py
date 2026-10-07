@@ -5,6 +5,10 @@ from behave import given, when, then
 def step_impl(context):
     context.app.products_page.open_product(context.base_url)
 
+@given('the user is not logged in')
+def step_impl(context):
+ pass
+
 
 @when('the user sets the product quantity to "{quantity}"')
 def step_impl(context, quantity):
@@ -13,6 +17,7 @@ def step_impl(context, quantity):
 
 @when('adds the product to the cart')
 def step_impl(context):
+    context.app.products_page.open_product(context.base_url)
     context.app.product_details_page.add_to_cart()
 
 
@@ -42,6 +47,11 @@ def step_impl(context):
 @then('the product should no longer be displayed in the cart')
 def step_impl(context):
     context.app.cart_page.assert_product_removed_from_cart()
+
+
+@then('the previously added product should still be displayed in the cart')
+def step_impl(context):
+    context.app.cart_page.assert_cart_has_products()
 
 
 @then('both products should be displayed in the cart')

@@ -20,6 +20,13 @@ def step_impl(context):
     context.app.signup_login_page.enter_password(context.password)
 
 
+@when('logs in with valid credentials')
+def step_impl(context):
+    context.app.signup_login_page.enter_email(context.email)
+    context.app.signup_login_page.enter_password(context.password)
+    context.app.signup_login_page.click_login()
+
+
 @when('clicks the Login button')
 def step_impl(context):
     context.app.signup_login_page.click_login()

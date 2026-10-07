@@ -123,8 +123,8 @@ Feature: Automation Exercise E-Commerce Functionality
   Scenario: Shopping cart persists after user login
     Given a registered user account exists
     And the user is not logged in
-    When the user adds a product to the cart
-    And navigates to the Signup Login page
+    When adds the product to the cart
+    And the user navigates to the Signup Login page
     And logs in with valid credentials
     And opens the shopping cart
     Then the previously added product should still be displayed in the cart

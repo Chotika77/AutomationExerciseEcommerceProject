@@ -36,6 +36,10 @@ class CartPage(Page):
     #         EC.invisibility_of_element_located(self.CART_ROWS)
     #     )
 
+    def assert_cart_has_products(self):
+        rows = self.find_elements(*self.CART_ROWS)
+        assert rows, "Expected at least one product in the cart, but none were found"
+
     def assert_cart_has_two_products(self):
         rows = self.find_elements(*self.CART_ROWS)
         assert len(rows) == 2, f"Expected 2 products in the cart, found {len(rows)}"
