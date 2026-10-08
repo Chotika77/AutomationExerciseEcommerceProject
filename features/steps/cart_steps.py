@@ -37,6 +37,7 @@ def step_impl(context):
 def step_impl(context):
     context.app.products_page.open_product(context.base_url)
     context.app.product_details_page.add_to_cart()
+    context.app.cart_page.open_cart()
 
 
 @when('removes the product')
