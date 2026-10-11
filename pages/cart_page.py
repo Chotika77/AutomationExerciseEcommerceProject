@@ -23,6 +23,10 @@ class CartPage(Page):
     def assert_product_removed_from_cart(self):
         self.wait.until(lambda d: len(d.find_elements(*self.CART_ROWS)) == 0)
 
+    def clear_cart(self):
+        while self.find_elements(*self.CART_DELETE_BUTTON):
+            self.find_element(*self.CART_DELETE_BUTTON).click()
+
 
 
     # def assert_product_removed_from_cart(self):

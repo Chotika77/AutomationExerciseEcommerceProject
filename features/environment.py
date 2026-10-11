@@ -55,6 +55,8 @@ def before_all(context):
     context.base_url = os.getenv("BASE_URL")
     context.email = os.getenv("TEST_USER_EMAIL")
     context.password = os.getenv("TEST_USER_PASSWORD")
+    context.checkout_name = os.getenv("CHECKOUT_NAME")
+    context.checkout_address = os.getenv("CHECKOUT_ADDRESS")
 
 
 def before_scenario(context, scenario):

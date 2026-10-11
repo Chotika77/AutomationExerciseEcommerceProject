@@ -142,8 +142,9 @@ Feature: Automation Exercise E-Commerce Functionality
 
   @regression
   Scenario: Checkout displays correct address and order information
-    Given a registered user is logged in
-    And the user has a product in the shopping cart
+    Given the user is logged in
+    And the user has an empty cart
+    And And the user adds a product to the cart
     When the user proceeds to checkout
     Then the delivery address should match the registered user address
     And the billing address should match the registered user address
