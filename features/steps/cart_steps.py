@@ -33,7 +33,7 @@ def step_impl(context):
 
 # Existing page-object methods used: products_page.open_product(), product_details_page.add_to_cart(), cart_page.open_cart()
 # New page-object methods added: cart_page.remove_product_from_cart(), cart_page.assert_product_removed_from_cart()
-@given('And the user adds a product to the cart')
+@given('the user adds a product to the cart')
 def step_impl(context):
     context.app.products_page.open_product(context.base_url)
     context.app.product_details_page.add_to_cart()

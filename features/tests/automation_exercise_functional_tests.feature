@@ -113,7 +113,7 @@ Feature: Automation Exercise E-Commerce Functionality
 
   @regression
   Scenario: User can remove a product from the cart
-    Given the user has a product in the shopping cart
+    Given the user adds a product to the cart
     When opens the shopping cart
     And removes the product
     Then the product should no longer be displayed in the cart
@@ -135,7 +135,7 @@ Feature: Automation Exercise E-Commerce Functionality
   @negative @regression
   Scenario: Unauthenticated user is required to authenticate during checkout
     Given the user is not logged in
-    And the user has a product in the shopping cart
+    And the user adds a product to the cart
     When the user proceeds to checkout
     Then the user should be prompted to register or log in
 
@@ -144,7 +144,7 @@ Feature: Automation Exercise E-Commerce Functionality
   Scenario: Checkout displays correct address and order information
     Given the user is logged in
     And the user has an empty cart
-    And And the user adds a product to the cart
+    And the user adds a product to the cart
     When the user proceeds to checkout
     Then the delivery address should match the registered user address
     And the billing address should match the registered user address
@@ -153,8 +153,8 @@ Feature: Automation Exercise E-Commerce Functionality
 
   @smoke @regression @e2e
   Scenario: Registered user can complete an order successfully
-    Given a registered user is logged in
-    And the user has a product in the shopping cart
+    Given the user is logged in
+    And the user adds a product to the cart
     When the user proceeds to checkout
     And reviews the delivery and order information
     And enters an order comment
