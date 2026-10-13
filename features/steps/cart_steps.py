@@ -21,6 +21,11 @@ def step_impl(context):
     context.app.product_details_page.add_to_cart()
 
 
+@when('adds the product to the cart without reopening the page')
+def step_impl(context):
+    context.app.product_details_page.add_to_cart()
+
+
 @when('the user adds two different products to the cart')
 def step_impl(context):
     context.app.products_page.add_two_products_to_cart()
@@ -47,6 +52,7 @@ def step_impl(context):
 
 @given('the user has an empty cart')
 def step_impl(context):
+    context.app.main_page.open(context.base_url)
     context.app.cart_page.open_cart()
     context.app.cart_page.clear_cart()
 

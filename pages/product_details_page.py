@@ -34,6 +34,7 @@ class ProductDetailsPage(Page):
         quantity_input = self.wait_for_element_to_appear(*self.QUANTITY_INPUT)
         quantity_input.clear()
         quantity_input.send_keys(str(quantity))
+        print("QUANTITY FIELD NOW:", quantity_input.get_attribute("value"))
 
     def add_to_cart(self):
         self.wait_to_be_clickable_click(*self.ADD_TO_CART_BUTTON)

@@ -97,10 +97,11 @@ Feature: Automation Exercise E-Commerce Functionality
 
 
   @regression
-  Scenario Outline: Cart reflects selected product quantity
-    Given the user opens a product details page
+Scenario Outline: Cart reflects selected product quantity
+    Given the user has an empty cart
+    And the user opens a product details page
     When the user sets the product quantity to "<quantity>"
-    And adds the product to the cart
+    And adds the product to the cart without reopening the page
     And opens the shopping cart
     Then the product quantity should be "<quantity>"
 

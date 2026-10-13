@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import Page
@@ -25,7 +26,9 @@ class CartPage(Page):
 
     def clear_cart(self):
         while self.find_elements(*self.CART_DELETE_BUTTON):
-            self.find_element(*self.CART_DELETE_BUTTON).click()
+            button = self.find_element(*self.CART_DELETE_BUTTON)
+            button.click()
+            WebDriverWait(self.driver, 10).until(EC.staleness_of(button))
 
 
 
