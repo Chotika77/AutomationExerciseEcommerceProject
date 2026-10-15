@@ -1,0 +1,35 @@
+
+name: UI Automation Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  ui-tests:
+    runs-on: ubuntu-latest
+
+    env:
+      BASE_URL: ${{ secrets.BASE_URL }}
+      TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+      TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+      CHECKOUT_NAME: ${{ secrets.CHECKOUT_NAME }}
+      CHECKOUT_ADDRESS: ${{ secrets.CHECKOUT_ADDRESS }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run UI tests
+        run: behave features/tests/

@@ -14,9 +14,15 @@ def browser_init(context, scenario_name):
     """
     :param context: Behave context
     """
+    options = Options()
+
+    if os.getenv("CI") == "true":
+        options.add_argument("--headless=new")
+        options.add_argument("--window-size=1920,1080")
+
     driver_path = ChromeDriverManager().install()
     service = Service(driver_path)
-    context.driver = webdriver.Chrome(service=service)
+    context.driver = webdriver.Chrome(service=service, options=options)
 
 
 
@@ -32,8 +38,8 @@ def browser_init(context, scenario_name):
     #     service=service
     # )
     #
-    # bs_user = 'davitchkuaseli_KSk4vy'
-    # bs_key = 'yxxfCf9AtwmzcmQHxxjm'
+    bs_user = os.getenv("BROWSERSTACK_USERNAME")
+    bs_key = os.getenv("BROWSERSTACK_ACCESS_KEY")
     # url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
     #
     # options = Options()
