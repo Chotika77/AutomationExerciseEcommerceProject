@@ -50,3 +50,29 @@ def test_put_to_brands_list():
 
     assert response.status_code == 200
     assert data["responseCode"] == 405
+
+def test_search_product():
+    url = "https://automationexercise.com/api/searchProduct"
+
+    response = requests.post(
+        url,
+        data={"search_product": "top"},
+        timeout=15
+    )
+    data = response.json()
+    print(data["responseCode"])
+    print(data["products"])
+
+    assert response.status_code == 200
+    assert data["responseCode"] == 200
+    assert len(data["products"]) > 0
+
+def test_search_product_without_parameter():
+    url = "https://automationexercise.com/api/searchProduct"
+
+    response = requests.post(url, timeout=15)
+    data = response.json()
+    print(data["responseCode"])
+
+    assert response.status_code == 200
+    assert data["responseCode"] == 400
