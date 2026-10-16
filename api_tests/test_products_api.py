@@ -28,3 +28,25 @@ def test_post_to_products_list():
 
     assert response.status_code == 200
     assert data["responseCode"] == 405
+
+def test_get_all_brands():
+    url = "https://automationexercise.com/api/brandsList"
+
+    response = requests.get(url, timeout=15)
+    data = response.json()
+    print(data)
+    print(response.status_code)
+    print(data["responseCode"])
+
+    assert response.status_code == 200
+    assert data["responseCode"] == 200
+    assert len(data["brands"]) > 0
+
+def test_put_to_brands_list():
+    url = "https://automationexercise.com/api/brandsList"
+
+    response = requests.put(url, timeout=15)
+    data = response.json()
+
+    assert response.status_code == 200
+    assert data["responseCode"] == 405
