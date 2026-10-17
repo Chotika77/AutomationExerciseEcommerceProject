@@ -1,4 +1,8 @@
 import requests
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def test_get_all_products():
@@ -76,3 +80,39 @@ def test_search_product_without_parameter():
 
     assert response.status_code == 200
     assert data["responseCode"] == 400
+
+def test_verify_login_valid_credentials():
+    url = "https://automationexercise.com/api/verifyLogin"
+
+    response = requests.post(
+        url,
+        data={
+            "email": os.getenv("TEST_USER_EMAIL"),
+            "password": os.getenv("TEST_USER_PASSWORD")
+        },
+        timeout=15
+    )
+
+    data = response.json()
+    print(data)
+    print("Email loaded:", bool(os.getenv("TEST_USER_EMAIL")))
+    print("Password loaded:", bool(os.getenv("TEST_USER_PASSWORD")))
+
+    assert response.status_code == 200
+    assert data["responseCode"] == 200
+    assert data["message"] == "User exists!"
+
+def test_verify_login_without_email():
+    url = "https://automationexercise.com/api/verifyLogin"
+
+    response = requests.post(
+        url,
+        data={"password": os.getenv("TEST_USER_PASSWORD")},
+        timeout=15
+    )
+
+    data = response.json()
+
+    assert response.status_code == 200
+    assert data["responseCode"] == 400
+    assert data["message"] == "Bad request, email or password parameter is missing in POST request."
