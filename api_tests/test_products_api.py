@@ -116,3 +116,33 @@ def test_verify_login_without_email():
     assert response.status_code == 200
     assert data["responseCode"] == 400
     assert data["message"] == "Bad request, email or password parameter is missing in POST request."
+
+def test_delete_verify_login():
+    url = "https://automationexercise.com/api/verifyLogin"
+
+    response = requests.delete(url, timeout=15)
+    data = response.json()
+
+    assert response.status_code == 200
+    assert data["responseCode"] == 405
+    assert data["message"] == "This request method is not supported."
+
+def test_verify_login_invalid_credentials():
+    url = "https://automationexercise.com/api/verifyLogin"
+
+    response = requests.post(
+        url,
+        data={
+            "email": "invalid@example.com",
+            "password": "wrongpassword"
+        },
+        timeout=15
+    )
+
+    data = response.json()
+    print(data)
+    print(data["responseCode"])
+
+    assert response.status_code == 200
+    assert data["responseCode"] == 404
+    assert data["message"] == "User not found!"
