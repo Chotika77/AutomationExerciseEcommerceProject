@@ -1,5 +1,6 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import StaleElementReferenceException
 
 
 
@@ -42,9 +43,21 @@ class Page:
         self.wait.until(EC.element_to_be_clickable(locator),
                         message = f'element {locator} not clickable' )
 
+    # def wait_to_be_clickable_click(self, *locator):
+    #     self.wait.until(EC.element_to_be_clickable(locator),
+    #                     message = f'element {locator} not clickable' ).click()
+
     def wait_to_be_clickable_click(self, *locator):
-        self.wait.until(EC.element_to_be_clickable(locator),
-                        message = f'element {locator} not clickable' ).click()
+        for attempt in range(3):
+            try:
+                self.wait.until(
+                    EC.element_to_be_clickable(locator),
+                    message=f'element {locator} not clickable'
+                ).click()
+                return
+            except StaleElementReferenceException:
+                if attempt == 2:
+                    raise
 
     def wait_for_element_to_appear(self, *locator):
         return self.wait.until(
