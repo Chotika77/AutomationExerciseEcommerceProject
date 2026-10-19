@@ -33,3 +33,5 @@ jobs:
 
       - name: Run UI tests
         run: behave features/tests/
+      - name: Run API tests
+        run: python -m pytest api_tests/ -v
